@@ -7,7 +7,7 @@ module.exports = function (wagner) {
   wagner.factory('fx', fx);
 
   wagner.factory('Config', function () {
-    return JSON.parse(fs.readFileSync('~/tmp/m101x/config.json').toString());;
+    return JSON.parse(fs.readFileSync('./credentials/config.json').toString());;
   });
 
   // TODO: Make Stripe depend on the Config service and use its `stripeKey`

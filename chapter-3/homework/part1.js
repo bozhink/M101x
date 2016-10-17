@@ -4,7 +4,7 @@ var _ = require('underscore');
 var fs = require('fs');
 
 describe('Homework 3.4', function () {
-  var Config = require('~/tmp/m101x/config.json');
+  var Config = require('./credentials/config.json');
   var succeeded = 0;
   var finalFX = {};
 

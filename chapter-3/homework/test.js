@@ -215,7 +215,7 @@ describe('Part 3 Assessment Tests', function() {
   it('gets the correct Facebook auth keys', function(done) {
     wagner.invoke(require('./auth'), { app: app });
 
-    var config = require('./config.json');
+    var config = require('./credentials/config.json');
     assert.equal(require('passport')._strategies['facebook']._clientSecret,
       config.facebookClientSecret);
     ++succeeded;
