@@ -1,16 +1,22 @@
 var Category = require('./category');
 var mongoose = require('mongoose');
 
-module.exports = function(db, fx) {
+module.exports = function (db, fx) {
   var productSchema = {
-    name: { type: String, required: true },
+    name: {
+      type: String,
+      required: true
+    },
     // Pictures must start with "http://"
-    pictures: [{ type: String, match: /^http:\/\//i }],
+    pictures: [{
+      type: String,
+      match: /^http:\/\//i
+    }],
     price: {
       amount: {
         type: Number,
         required: true,
-        set: function(v) {
+        set: function (v) {
           this.internal.approximatePriceUSD =
             v / (fx()[this.price.currency] || 1);
           return v;
@@ -21,7 +27,7 @@ module.exports = function(db, fx) {
         type: String,
         enum: ['USD', 'EUR', 'GBP'],
         required: true,
-        set: function(v) {
+        set: function (v) {
           this.internal.approximatePriceUSD =
             this.price.amount / (fx()[v] || 1);
           return v;
@@ -36,7 +42,9 @@ module.exports = function(db, fx) {
 
   var schema = new mongoose.Schema(productSchema);
 
-  schema.index({ name: 'text' });
+  schema.index({
+    name: 'text'
+  });
 
   var currencySymbols = {
     'USD': '$',
@@ -48,13 +56,17 @@ module.exports = function(db, fx) {
    * Human-readable string form of price - "$25" rather
    * than "25 USD"
    */
-  schema.virtual('displayPrice').get(function() {
+  schema.virtual('displayPrice').get(function () {
     return currencySymbols[this.price.currency] +
       '' + this.price.amount;
   });
 
-  schema.set('toObject', { virtuals: true });
-  schema.set('toJSON', { virtuals: true });
+  schema.set('toObject', {
+    virtuals: true
+  });
+  schema.set('toJSON', {
+    virtuals: true
+  });
 
   return db.model('Product', schema, 'products');
 };
