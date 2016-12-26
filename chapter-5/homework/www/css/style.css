@@ -1,1 +1,6 @@
 /* Empty. Add your own CSS if you like */
+
+.search-bar-wrapper {
+    max-width: 100px;
+    width: 100px;
+}
